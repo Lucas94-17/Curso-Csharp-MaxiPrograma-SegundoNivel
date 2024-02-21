@@ -63,14 +63,16 @@ namespace Presentación
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //Articulo elemento;
             Cargar();
-            cargarBotones();
+            cargarBotones("Detalles","Ver mas detalles");
+            cargarBotones("Modificar", "Modificar Elemento");
+            cargarBotones("Eliminar", "Eliminar");
             cbxCampo.Items.Add("Codigo");
             cbxCampo.Items.Add("Nombre");
             cbxCampo.Items.Add("Descripcion");
             cbxCampo.Items.Add("Precio");
         }
-
         private void Cargar()
         {
             ArticuloNegocio articuloNegocio = new ArticuloNegocio();
@@ -91,14 +93,42 @@ namespace Presentación
                 MessageBox.Show(ex.ToString());
             }
         }
-        private void cargarBotones()
+        private void cargarBotones(string nombre,string texto)
         {
             DataGridViewButtonColumn button = new DataGridViewButtonColumn();
-            button.Name = "Detalles";
-            button.Text = "Ver mas detalles !";
+            button.HeaderText = nombre;
+            button.Text = texto;
             button.UseColumnTextForButtonValue = true;
             dgvDatos.Columns.Add(button);
         }
+       
+        private void dgvDatos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == -1)
+                return;
+
+            if (this.dgvDatos.Columns[e.ColumnIndex].HeaderText == "Detalles")
+            {
+                Articulo elegido;
+                elegido = (Articulo)dgvDatos.CurrentRow.DataBoundItem;
+                DetallesArticulo Detalles = new DetallesArticulo(elegido);
+                Detalles.ShowDialog();
+            }
+            if (this.dgvDatos.Columns[e.ColumnIndex].HeaderText == "Modificar")
+            {
+                Articulo elegido;
+                elegido = (Articulo)dgvDatos.CurrentRow.DataBoundItem;
+                AltaArticulo modificar = new AltaArticulo(elegido);
+                modificar.ShowDialog();
+                Cargar();
+            }
+            if (this.dgvDatos.Columns[e.ColumnIndex].HeaderText == "Eliminar")
+            {
+                eliminar();
+            }
+
+        }
+
         private void cargarImagen(string imagen)
         {
             try
@@ -117,10 +147,9 @@ namespace Presentación
             dgvDatos.Columns["Id"].Visible = false;
             dgvDatos.Columns["Descripcion"].Visible = false;
             dgvDatos.Columns["Codigo"].Visible = false;
-            dgvDatos.Columns["Precio"].Visible = false;
-            dgvDatos.Columns["Categoria"].Visible = false;
+            dgvDatos.Columns["Precio"].Visible = true;
+            //dgvDatos.Columns["Categoria"].Visible = false;
         }
-
         private void dgvDatos_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvDatos.CurrentRow != null)
@@ -130,16 +159,12 @@ namespace Presentación
 
             }
         }
-
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             AltaArticulo Alta = new AltaArticulo();
             Alta.ShowDialog();
             Cargar();
         }
-
-      
-
         private void eliminar(bool logico = false)
         {
             ArticuloNegocio negocio = new ArticuloNegocio();
@@ -162,19 +187,21 @@ namespace Presentación
             }
         }
 
-        private void btnEliminar_Click(object sender, EventArgs e)
-        {
-            eliminar();
-        }
+       
 
         private void cbxCampo_SelectedIndexChanged(object sender, EventArgs e)
         {
             string opcion = cbxCampo.SelectedItem.ToString();
-            if (opcion == "Precio")
+            if (opcion == "Precio" )
             {
                 cbxCriterio.Items.Clear();
                 cbxCriterio.Items.Add("Mayor a");
                 cbxCriterio.Items.Add("Menor a");
+                cbxCriterio.Items.Add("Igual a");
+            }
+            else if(opcion == "Codigo")
+            {
+                cbxCriterio.Items.Clear();
                 cbxCriterio.Items.Add("Igual a");
             }
             else
@@ -194,12 +221,12 @@ namespace Presentación
             {
                 if (validarFiltro())
                 {
-                    return; 
+                    return;
                 }
                 string campo = cbxCampo.SelectedItem.ToString();
                 string criterio = cbxCriterio.SelectedItem.ToString();
                 string filtro = txtboxFiltro.Text;
-                dgvDatos.DataSource = articulo.filtrar(campo, criterio,filtro);
+                dgvDatos.DataSource = articulo.filtrar(campo, criterio, filtro);
             }
             catch (Exception ex)
             {
@@ -207,30 +234,6 @@ namespace Presentación
                 MessageBox.Show(ex.ToString());
             }
         }
-        private void btnModificar_Click(object sender, EventArgs e)
-        {
-            Articulo elegido;
-            elegido = (Articulo)dgvDatos.CurrentRow.DataBoundItem;
-
-            AltaArticulo modificar = new AltaArticulo(elegido);
-            modificar.ShowDialog();
-            Cargar();
-
-        }
-        private void dgvDatos_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if(e.ColumnIndex == -1)
-                return;
-            
-            if (this.dgvDatos.Columns[e.ColumnIndex].Name == "Detalles")
-            {
-                Articulo elegido;
-                elegido = (Articulo)dgvDatos.CurrentRow.DataBoundItem;
-                DetallesArticulo Detalles = new DetallesArticulo(elegido);
-                Detalles.ShowDialog();
-            }
-        }
-
         private void btnSalir_Click(object sender, EventArgs e)
         {
             Close();

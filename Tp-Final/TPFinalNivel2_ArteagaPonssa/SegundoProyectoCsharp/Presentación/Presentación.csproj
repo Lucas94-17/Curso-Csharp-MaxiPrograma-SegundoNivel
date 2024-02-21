@@ -58,13 +58,11 @@
     <Compile Include="DetallesArticulo.Designer.cs">
       <DependentUpon>DetallesArticulo.cs</DependentUpon>
     </Compile>
-    <Compile Include="..\VentanaPrincipal.cs">
+    <Compile Include="VentanaPrincipal.cs">
       <SubType>Form</SubType>
-      <Link>VentanaPrincipal.cs</Link>
     </Compile>
-    <Compile Include="..\VentanaPrincipal.Designer.cs">
+    <Compile Include="VentanaPrincipal.Designer.cs">
       <DependentUpon>VentanaPrincipal.cs</DependentUpon>
-      <Link>VentanaPrincipal.Designer.cs</Link>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,9 +72,8 @@
     <EmbeddedResource Include="DetallesArticulo.resx">
       <DependentUpon>DetallesArticulo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\VentanaPrincipal.resx">
+    <EmbeddedResource Include="VentanaPrincipal.resx">
       <DependentUpon>VentanaPrincipal.cs</DependentUpon>
-      <Link>VentanaPrincipal.resx</Link>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

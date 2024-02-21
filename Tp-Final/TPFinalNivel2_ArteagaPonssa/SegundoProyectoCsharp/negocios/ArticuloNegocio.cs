@@ -136,21 +136,13 @@ namespace negocios
             {
                 string consulta = "Select Codigo , Nombre, A.Descripcion ,ImagenUrl, Precio , M.Descripcion  Marca, C.Descripcion Categoria, A.IdCategoria,A.IdMarca , A.Id  from ARTICULOS A , MARCAS M , CATEGORIAS C  where M.Id = A.IdMarca AND C.Id = A.IdCategoria AND ";
                 Console.WriteLine(consulta);
+                Console.WriteLine(filtro);
                 if(campo == "Codigo")
                 {
-                    switch (criterio)
-                    {
-                        case "Comienza con":
-                            consulta += "Codigo like '" + filtro + "%'";
-                        break;
-                        case "Termina con":
-                            consulta += "Codigo like'%" + filtro +"'";
-                        break;
-                        default:
-                            consulta += "Codigo like '%" + filtro + "%'";
-                        break;
-                    }
-                }else if(campo == "Precio")
+                    consulta += "Codigo = '" + filtro+"'";
+
+                }
+                else if(campo == "Precio")
                 {
                     switch (criterio)
                     {

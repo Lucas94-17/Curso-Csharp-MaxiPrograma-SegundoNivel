@@ -54,8 +54,8 @@ namespace Presentación
                     txtPrecio.Text = articulo.Precio.ToString();
                     txtUrlImagen.Text = articulo.urlImage;
                     cargarImagen(articulo.urlImage);
-                    cbxCategoria.SelectedValue = articulo.Categoria.Id.ToString();
-                    cbxMarca.SelectedValue = articulo.Marca.Id.ToString();
+                    cbxCategoria.SelectedValue = articulo.Categoria.Id;
+                    cbxMarca.SelectedValue = articulo.Marca.Id;
                 }
             }
             catch (Exception ex)
