@@ -22,7 +22,7 @@ namespace negocios
 
             try
             {
-                datos.setearConsulta("Select Codigo , Nombre,A.Precio ,A.Descripcion, ImagenUrl , M.Descripcion as Marca , C.Descripcion as Categoria , A.IdCategoria, A.IdMarca , A.Id from ARTICULOS A,CATEGORIAS C , MARCAS M  WHERE M.Id = A.IdMarca AND C.Id = A.IdCategoria");
+                datos.setearConsulta("  Select Codigo , Nombre , A.Precio , A.Descripcion, ImagenUrl , M.Descripcion as Marca ,C.Descripcion as Categoria , A.IdCategoria, A.IdMarca , A.Id from ARTICULOS A,CATEGORIAS C , MARCAS M  WHERE M.Id = A.IdMarca AND C.Id = A.IdCategoria");
                 //datos.setearConsulta("Select Id , Codigo from Articulos");
                 datos.ejecutarAccion();
 
@@ -35,7 +35,6 @@ namespace negocios
                     aux.Descripcion = (string)datos.lector["Descripcion"];
                     aux.urlImage = (string)datos.lector["ImagenUrl"];
                     aux.Precio = (decimal)datos.lector["Precio"];
-
 
                     aux.Categoria = new Categorias();
                     aux.Categoria.Id = (int)datos.lector["Id"];

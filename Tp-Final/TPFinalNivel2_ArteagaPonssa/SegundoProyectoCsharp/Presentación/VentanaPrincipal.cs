@@ -186,9 +186,6 @@ namespace Presentación
                 throw ex;
             }
         }
-
-       
-
         private void cbxCampo_SelectedIndexChanged(object sender, EventArgs e)
         {
             string opcion = cbxCampo.SelectedItem.ToString();

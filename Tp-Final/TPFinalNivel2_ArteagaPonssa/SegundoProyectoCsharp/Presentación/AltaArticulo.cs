@@ -14,7 +14,7 @@ namespace Presentación
 {
     public partial class AltaArticulo : Form
     {
-        public Articulo articulo = null;
+        private Articulo articulo = null;
         ErrorProvider error = new ErrorProvider();
         public AltaArticulo()
         {
@@ -54,8 +54,8 @@ namespace Presentación
                     txtPrecio.Text = articulo.Precio.ToString();
                     txtUrlImagen.Text = articulo.urlImage;
                     cargarImagen(articulo.urlImage);
-                    cbxCategoria.SelectedValue = articulo.Categoria.Id;
-                    cbxMarca.SelectedValue = articulo.Marca.Id;
+                    cbxCategoria.Text = articulo.Categoria.Descripcion;
+                    cbxMarca.Text = articulo.Marca.Descripcion;
                 }
             }
             catch (Exception ex)
